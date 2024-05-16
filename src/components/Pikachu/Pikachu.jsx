@@ -5,8 +5,6 @@ const Pikachu = ({ minWidth, maxWidth, minHeight, maxHeight }) => {
   const [Flipped, setFlipped] = useState(false);
   // 키 입력에 따라 박스를 움직이는 함수
   const moveBox = (e) => {
-    console.log(position.x, position.y);
-
     const { x, y } = position;
     // 10은 이동거리 계산용 50은 박스 크기 계산용
     switch (e.key) {
@@ -24,10 +22,25 @@ const Pikachu = ({ minWidth, maxWidth, minHeight, maxHeight }) => {
         setFlipped(false);
         setPosition({ x: x + 10 + 50 < maxWidth ? x + 10 : x, y });
         break;
+      case " ":
+        jump();
+        break;
       default:
         break;
     }
   };
+
+  const jump = () => {
+    let temp = position;
+    let peak = { x: position.x, y: position.y - 100 }; // 점프 높이 설정
+    setPosition(peak); // 점프 시작
+
+    // 점프 후 다시 내려오기
+    setTimeout(() => {
+      setPosition(temp); // 시작 위치로 복귀
+    }, 500); // 점프 지속 시간 설정
+  };
+
   // 키 입력 이벤트 리스너 추가
   useEffect(() => {
     window.addEventListener("keydown", moveBox);
