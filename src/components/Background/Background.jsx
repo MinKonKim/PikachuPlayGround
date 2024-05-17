@@ -20,8 +20,12 @@ const Background = ({ width, height }) => {
         width: `${width}px`,
         height: `${height}px`,
         backgroundColor: "green",
+        backgroundImage: "url(src/assets/grass.png)",
+        backgroundSize: "120px",
+        backgroundRepeat: "repeat",
+        margin: "auto",
       }}
-    />
+    ></div>
   );
 };
 

@@ -1,8 +1,8 @@
 import Background from "../Background";
 import Pikachu from "../Pikachu";
 
-const WIDTH = 500;
-const HEIGHT = 500;
+const WIDTH = 1000;
+const HEIGHT = 1000;
 const MIDDLE_WIDTH = window.innerWidth / 2 - 45;
 const MIDDLE_HEIGHT = window.innerHeight / 2 - 45;
 const Game = () => {

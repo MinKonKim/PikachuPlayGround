@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 const Pikachu = ({ minWidth, maxWidth, minHeight, maxHeight }) => {
   const [position, setPosition] = useState({ x: 100, y: 100 });
   const [Flipped, setFlipped] = useState(false);
+  const [isJumping, setIsJumping] = useState(false);
   // 키 입력에 따라 박스를 움직이는 함수
   const moveBox = (e) => {
     const { x, y } = position;
@@ -23,22 +24,14 @@ const Pikachu = ({ minWidth, maxWidth, minHeight, maxHeight }) => {
         setPosition({ x: x + 10 + 50 < maxWidth ? x + 10 : x, y });
         break;
       case " ":
-        jump();
+        setIsJumping(true);
         break;
       default:
         break;
     }
   };
-
-  const jump = () => {
-    let temp = position;
-    let peak = { x: position.x, y: position.y - 100 }; // 점프 높이 설정
-    setPosition(peak); // 점프 시작
-
-    // 점프 후 다시 내려오기
-    setTimeout(() => {
-      setPosition(temp); // 시작 위치로 복귀
-    }, 500); // 점프 지속 시간 설정
+  const handleAnimationEnd = () => {
+    setIsJumping(false); // 애니메이션이 끝나면 점프 상태를 false로 변경
   };
 
   // 키 입력 이벤트 리스너 추가
@@ -70,7 +63,10 @@ const Pikachu = ({ minWidth, maxWidth, minHeight, maxHeight }) => {
     <img
       className={`${
         Flipped ? "scale-x-[-1]" : "scale-x-100"
-      } transition-transform duration-500`}
+      } transition-transform duration-500
+      ${isJumping ? "animate-jump" : ""}
+      `}
+      onAnimationEnd={handleAnimationEnd}
       src="src\assets\pikachu.png"
       style={{
         position: "absolute",
